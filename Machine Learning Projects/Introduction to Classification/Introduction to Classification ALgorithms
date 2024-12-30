@@ -1,0 +1,104 @@
+Code:
+from sklearn.tree import DecisionTreeClassifier
+
+# decision tree
+tree = DecisionTreeClassifier(max_depth=3, random_state = 42)
+tree.fit(X, y)
+inst = np.array([4,0]) 
+inst = inst.reshape(1,-1) 
+y_pred = tree.predict(inst) # prediction
+print(y_pred) # print the prediction
+np.random.seed(3) # seed
+n = 3
+idxs = np.random.randint(X.shape[0], size=3)
+inst_t = X[idxs,:]
+y_pred = tree.predict(inst_t)
+
+Q1. Based on previous results, choice the correct answers.
+
+a) The predictive label of the instance 249 is 1
+b) The predictive label of the instance 874 is 0
+c) The predictive label of the instance 874 is 1
+d) The predictive label of the instance 664 is 0
+
+Correct answer : a) & b)
+
+Q2. Use the following code to compute the accuracy_score:
+from sklearn.metrics import accuracy_score
+y_pred = tree.predict(X)
+accuracy_score(y_pred,y)
+
+Correct answer : 0.90
+
+Q3. 
+from sklearn.metrics import ConfusionMatrixDisplay
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+
+cm = confusion_matrix(y, y_pred)
+ConfusionMatrixDisplay(confusion_matrix=cm).plot(cmap = plt.get_cmap('Blues'))      
+
+Select the correct answers using the information from the confusion matrix.
+
+a) The model classify correctly 905 instances
+b) There are only 61 true positive and 34 true negative
+c) The number of false positive instance is 61
+d) The model classify incorrectly 500 instance
+
+Correct answer : a) & c)
+
+Q4. Separate the target and the features into two variables and create the response variable based on the columns Trump and Clinton.
+
+Select the correct code to complete this task
+
+a) X=df.drop(['trump', 'clinton'],axis=1)
+b) y=np.where(df.trump>df.clinton,1,0)
+c) y=df.trump
+d) X=df[['minority','bachelor']]
+
+Correct answer : b) and d)
+
+Q5. Initialize a Decision Tree classifier (name the model clf) and fit on the data with a random_state: 42 and max_depth : 3 (the maximum depth of our decision tree using the max_depth parameter).
+
+Calculate the accuracy score of the training dataset. Select the correct answer.
+
+a) 0.901
+b) 0.908
+c) 0.808
+d) 0.801
+
+Code : 
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score
+
+clf = DecisionTreeClassifier(max_depth = 3, random_state = 42)
+clf.fit(X,y)
+y_pred = clf.predict(X)
+print(accuracy_score(y,y_pred))
+
+Correct answer : b)
+
+Q6. Which of the following statements are True about classification?
+
+a) A single row of data is called an instance.
+b) Classification is a supervised task.
+c) The target variable is the variable whose values are modeled and predicted by other variables.
+d) Classification is a unsupervised task.
+
+Correct answer : a), b) and c)
+
+Q7. Which of the following statements are examples of classification?
+
+a) Predict when an images belong to a class such as recurrent cancer or no cancer.
+b) Predict the prices of the house based on other variables
+c) Develop a mathematical relationship between heater level (0-100%) and temperature (20-70°C).
+d) Determine when a heater is on or off based on temperature data.
+
+Correct answer : a) and d)
+
+Q8. In which phase are model parameters adjusted?
+
+a) Training phase
+b) Data preparation phase
+c) Testing phase
+
+Correct answer : a)
