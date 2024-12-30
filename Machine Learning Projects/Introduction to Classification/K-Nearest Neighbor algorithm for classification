@@ -1,0 +1,33 @@
+Q1. What is accuracy of training and testing data?
+a) The accuracy of train set is 0.93
+b) The accuracy of test set is 0.80
+c) The accuracy of train set is 0.78
+d) The accuracy of test set is 0.90
+
+Correct answer : a) & d)
+
+Q2. K-NN algorithm does more computation on test time rather than train time.
+a) True
+b) False
+
+Correct answer : a)
+
+Q3. Which of the following option is true about KNN algorithm?
+a) It can be used in both classification and regression
+b) It can be used for regression
+c) It can be used for classification
+
+Correct answer : a)
+
+Q4. Which of the following statement is true about KNN algorithm ?
+a) KNN works well with a small number of input variables.
+b) KNN performs much better if all of the data have the same scale.
+c) K-NN makes assumptions about the functional form of the problem being solved.
+
+Correct answer : a) & b)
+
+Q5. The Figure below illustrates decision boundaries for two nearest-neighbour classifiers. Determine which one of the boundaries belongs to the 1-nearest neighbour classifier.
+a) Decision boundary 2
+b) Decision boudary 1
+
+Correct answer : b)
