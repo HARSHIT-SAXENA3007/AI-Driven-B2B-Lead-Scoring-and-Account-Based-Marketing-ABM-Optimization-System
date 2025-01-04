@@ -1,0 +1,68 @@
+Code:
+gini_i= 1 - (6/10)**2- (4/10)**2 #=0.48
+print("Gini Index:", gini_i)
+# calculate the Gini index
+gini_fur= 1 - (5/7)**2- (2/7)**2 #=0.408
+gini_nofur= 1 - (1/3)**2- (2/3)**2 #=0.444
+print("Gini Index fur:", gini_fur)
+print("Gini Index nofur:", gini_nofur)
+# calculate the Gini index
+Gini_w= 7/10*gini_fur+3/10*gini_nofur #=0.4196
+print("Gini Index weighted:", Gini_w)
+print("Gini Index nofur:", gini_nofur)
+
+Q1. Select the Gini index for the entire dataset
+
+a) 0.375
+
+b) 0.653
+
+c) 0.232
+
+d) 0.641
+
+Correct answer: b)
+
+Q2. Suppose we want to split the dataset based on color. Compute the Gini index for each subset of the dataset that results from this split.
+
+a) Gini index red fruit = 0
+
+b) Gini index blue fruit = 0.375
+
+c) Gini index red fruit = 0.375
+
+d) Gini index blue fruit = 1
+
+Correct answer: c)
+
+Q3. Which split, based on color or taste, results in a lower Gini index?
+
+a) Taste
+
+b) Color
+
+Correct answer: a)
+
+Code:
+from sklearn import tree
+X = df.drop(['Class'], axis=1)
+y = df['Class']
+
+dt = tree.DecisionTreeClassifier(criterion='gini',max_depth=4,min_samples_leaf=2)
+dt.fit(X, y)
+
+plt.figure(figsize=(12,5))  # set plot size (denoted in inches)
+tree.plot_tree(dt,feature_names=df.columns[:-1],filled=True,rounded=True, fontsize=12)
+plt.show()
+
+Q4. What is the Gini index of the initial split of the decision tree
+
+a) 0.025
+
+b) 0
+
+c) 0.023
+
+d) 0.5
+
+Correct answer: d)
