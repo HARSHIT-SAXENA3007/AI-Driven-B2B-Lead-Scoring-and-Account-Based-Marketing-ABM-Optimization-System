@@ -1,0 +1,306 @@
+Q1. Calculate the percentage of missing values. If you find any missing values, please drop them using df.dropna(inplace=True).
+
+a) No, data does not contain missing values
+
+b) Yes, there is 3.93% of missing values for bmi variable
+
+c) Yes, there is 4.93% of missing values for the hypertension variable
+
+Correct answer: b)
+
+Q2. id column is unique for every row and will be deviating from the model. So let's just remove it. Choose the correct option to remove it.
+
+a) df.drop(["id"], axis=1)
+
+b) df.drop(["id"], axis=1, inplace=True)
+
+c) df.drop(["id"], axis=0, inplace=True)
+
+d) df = df.drop(["id"], axis=0, inplace=True)
+
+Corect answer: b)
+
+Q3. Complete the following code with the categorical variables and run it in the notebook:
+
+a) cat_variables = ["gender","hypertension","heart_disease","ever_married"]
+
+b) cat_variables = ["gender","hypertension","heart_disease","ever_married","work_type","Residence_type"]
+
+c) cat_variables = ["gender","hypertension","heart_disease","ever_married","work_type","Residence_type","smoking_status"]
+
+d) cat_variables = ["heart_disease","ever_married","work_type","Residence_type","smoking_status"]
+
+Correct answer: c)
+
+Q4. What is the purpose of calculating a correlation matrix?
+
+a) To determine which variables are related to each other.
+
+b) To predict future values based on past data.
+
+c) To classify data into different categories.
+
+Correct answer : a)
+
+Q5. What does a value of -1 in a correlation matrix indicate?
+
+a) No linear relationship between two variables.
+
+b) A perfect positive linear relationship between two variables.
+
+c) Perfect negative linear relationship between two variables.
+
+Correct answer: c)
+
+Q6. non_stroke=df.loc[df.stroke==0].sample(df.loc[df.stroke==1].shape[0],random_state=1)
+stroke=df.loc[df.stroke==1]
+frames = [stroke,non_stroke]
+result = pd.concat(frames)
+result.sample(frac=1,random_state=1)
+result.head()
+
+variables=["stroke","gender","hypertension","heart_disease",'ever_married','work_type','Residence_type','smoking_status']
+X=result.drop(columns =variables)
+y=result.stroke
+
+Q7. import pandas as pd
+from sklearn.model_selection import train_test_split
+
+# Load the dataset
+df = pd.read_csv('healthcare-dataset-stroke-data.csv')
+
+# One-Hot Encoding for categorical variables
+df_encoded = pd.get_dummies(df, drop_first=True)
+
+# Define features (X) and target variable (y)
+# Assuming 'stroke' is the target variable (you may need to adjust this based on your dataset)
+X = df_encoded.drop(columns=['stroke'])  # Features
+y = df_encoded['stroke']                  # Target variable
+random_state=0
+# Split the dataset into training and testing sets (80% train, 20% test)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
+
+# Display the shapes of the resulting sets
+print("Training feature set shape:", X_train.shape)
+print("Testing feature set shape:", X_test.shape)
+print("Training target set shape:", y_train.shape)
+
+Q8. from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score
+
+# Train the decision tree model with a maximum depth 3
+dt = DecisionTreeClassifier(max_depth=3, random_state=42)
+dt.fit(X_train, y_train)
+
+# Make predictions on the data
+y_pred_train = dt.predict(X_train)
+y_pred_test= dt.predict(X_test)
+# Calculate the accuracy of the model
+train_accuracy = accuracy_score(y_train, y_pred_train)
+test_accuracy = accuracy_score(y_test, y_pred_test)
+print('accuracy train', train_accuracy)
+print('accuracy test', test_accuracy)
+
+Q9. from sklearn.neighbors import KNeighborsClassifier
+from sklearn.preprocessing import StandardScaler
+# Create a KNN classifier with different values of k
+scaler = StandardScaler()
+scaler=scaler.fit(X_train)
+# standardization 
+X_train_scaler = scaler.transform(X_train) 
+X_test_scaler = scaler.transform(X_test) 
+
+knn = KNeighborsClassifier(n_neighbors=3)
+knn.fit(X_train_scaler, y_train)
+# Make predictions on the data
+y_pred_train = knn.predict(X_train_scaler)
+y_pred_test= knn.predict(X_test_scaler)
+# Calculate the accuracy of the model
+train_accuracy = accuracy_score(y_train, y_pred_train)
+test_accuracy = accuracy_score(y_test, y_pred_test)
+print('accuracy train', train_accuracy)
+print('accuracy test', test_accuracy)
+
+Q10.import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import accuracy_score
+
+# Load the dataset
+df = pd.read_csv('healthcare-dataset-stroke-data.csv')
+
+# Drop rows with missing values
+df.dropna(inplace=True)
+
+# One-Hot Encoding for categorical variables
+df_encoded = pd.get_dummies(df, drop_first=True)
+
+# Define features (X) and target variable (y)
+X = df_encoded.drop(columns=['stroke'])  # Features
+y = df_encoded['stroke']                  # Target variable
+
+# Split the dataset into training and testing sets (80% train, 20% test)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
+
+# Standardize the features
+scaler = StandardScaler()
+X_train_scaler = scaler.fit_transform(X_train)
+X_test_scaler = scaler.transform(X_test)
+
+# Initialize the KNeighborsClassifier with k (number of neighbors)
+k = 5
+knn_classifier = KNeighborsClassifier(n_neighbors=k)
+
+# Train the model on the training data
+knn_classifier.fit(X_train_scaler, y_train)
+
+# Make predictions on the training and testing sets
+y_train_pred = knn_classifier.predict(X_train_scaler)
+y_test_pred = knn_classifier.predict(X_test_scaler)
+
+# Calculate accuracy for the training and testing sets
+train_accuracy = accuracy_score(y_train, y_train_pred)
+test_accuracy = accuracy_score(y_test, y_test_pred)
+
+# Output the results
+print("Training Accuracy:", train_accuracy)
+print("Testing Accuracy:", test_accuracy)
+
+Code :
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+df=pd.read_csv("healthcare-dataset-stroke-data.csv")
+df.shape
+df.head()
+df.info()
+df.describe()
+percent_missing = round(df.isnull().sum() * 100 / len(df),3)
+missing_value_df = pd.DataFrame({'Missing_Percentage': percent_missing})
+missing_value_df.sort_values(by="Missing_Percentage",ascending=False).head(5)
+df.drop(["id"], axis=1, inplace=True) 
+cat_variables = ["gender","hypertension","heart_disease","ever_married","work_type","Residence_type","smoking_status"]
+for i in cat_variables:
+    fig_dims = (10, 4)
+    fig, ax = plt.subplots(figsize=fig_dims)
+    sns.countplot(x=i, hue="stroke", ax=ax, data=df,
+                palette="RdBu",order=df[i].value_counts().index)
+    plt.xticks(rotation=90)
+    plt.legend(loc='upper right')
+    plt.show()
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Load the dataset
+df = pd.read_csv('healthcare-dataset-stroke-data.csv')
+
+# One-Hot Encoding for categorical variables
+df_encoded = pd.get_dummies(df, drop_first=True)
+
+# Calculate the correlation matrix
+corr = df_encoded.corr()
+
+# Round the correlation values to 2 decimal places
+corr_rounded = corr.round(2)
+
+# Displaying the correlation matrix with a background gradient
+styled_corr = corr_rounded.style.background_gradient(cmap='coolwarm')
+styled_corr  # Display this in a Jupyter Notebook cell
+
+# Optional: Visualizing the correlation matrix as a heatmap
+plt.figure(figsize=(10, 8))
+sns.heatmap(corr_rounded, annot=True, fmt=".2f", cmap='coolwarm', square=True, cbar_kws={"shrink": .8})
+plt.title('Correlation Matrix Heatmap')
+plt.show()
+sns.set_palette("RdBu")
+sns.countplot(data=df, x='stroke');
+print(df.stroke.value_counts())
+df["stroke"].value_counts()
+non_stroke=df.loc[df.stroke==0].sample(df.loc[df.stroke==1].shape[0],random_state=1)
+stroke=df.loc[df.stroke==1]
+frames = [stroke,non_stroke]
+result = pd.concat(frames)
+result.sample(frac=1,random_state=1)
+result.head()
+variables=["stroke","gender","hypertension","heart_disease",'ever_married','work_type','Residence_type','smoking_status']
+X=result.drop(columns =variables)
+y=result.stroke
+import pandas as pd
+from sklearn.model_selection import train_test_split
+
+# Load the dataset
+df = pd.read_csv('healthcare-dataset-stroke-data.csv')
+
+# One-Hot Encoding for categorical variables
+df_encoded = pd.get_dummies(df, drop_first=True)
+
+# Define features (X) and target variable (y)
+# Assuming 'stroke' is the target variable (you may need to adjust this based on your dataset)
+X = df_encoded.drop(columns=['stroke'])  # Features
+y = df_encoded['stroke']                  # Target variable
+random_state=0
+# Split the dataset into training and testing sets (80% train, 20% test)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
+
+# Display the shapes of the resulting sets
+print("Training feature set shape:", X_train.shape)
+print("Testing feature set shape:", X_test.shape)
+print("Training target set shape:", y_train.shape)
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score
+dt = DecisionTreeClassifier(max_depth=3, random_state=42)
+dt.fit(X_train, y_train)
+y_pred_train = dt.predict(X_train)
+y_pred_test= dt.predict(X_test)
+train_accuracy=accuracy_score(y_train, y_pred_train)
+test_accuracy=accuracy_score(y_test, y_pred_test)
+print('accuracy train', train_accuracy)
+print('accuracy test', test_accuracy)
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import accuracy_score
+
+# Load the dataset
+df = pd.read_csv('healthcare-dataset-stroke-data.csv')
+
+# Drop rows with missing values
+df.dropna(inplace=True)
+
+# One-Hot Encoding for categorical variables
+df_encoded = pd.get_dummies(df, drop_first=True)
+
+# Define features (X) and target variable (y)
+X = df_encoded.drop(columns=['stroke'])  # Features
+y = df_encoded['stroke']                  # Target variable
+
+# Split the dataset into training and testing sets (80% train, 20% test)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
+
+# Standardize the features
+scaler = StandardScaler()
+X_train_scaler = scaler.fit_transform(X_train)
+X_test_scaler = scaler.transform(X_test)
+
+# Initialize the KNeighborsClassifier with k (number of neighbors)
+k = 5
+knn_classifier = KNeighborsClassifier(n_neighbors=k)
+
+# Train the model on the training data
+knn_classifier.fit(X_train_scaler, y_train)
+
+# Make predictions on the training and testing sets
+y_train_pred = knn_classifier.predict(X_train_scaler)
+y_test_pred = knn_classifier.predict(X_test_scaler)
+
+# Calculate accuracy for the training and testing sets
+train_accuracy = accuracy_score(y_train, y_train_pred)
+test_accuracy = accuracy_score(y_test, y_test_pred)
+
+# Output the results
+print("Training Accuracy:", train_accuracy)
+print("Testing Accuracy:", test_accuracy)
