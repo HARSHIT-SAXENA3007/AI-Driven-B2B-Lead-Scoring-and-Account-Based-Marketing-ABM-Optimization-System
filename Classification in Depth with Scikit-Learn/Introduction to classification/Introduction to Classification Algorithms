@@ -1,0 +1,122 @@
+Code:
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.datasets import make_blobs
+
+X, y = make_blobs(n_samples=1000, centers=2,
+                  random_state=0, cluster_std=1.3)
+plt.scatter(X[:, 0], X[:, 1], c=y, s=25, cmap='bwr')
+plt.colorbar()
+plt.xlabel('x1')
+plt.ylabel('x2')
+plt.show()
+from sklearn.tree import DecisionTreeClassifier
+tree = DecisionTreeClassifier(max_depth=3, random_state = 42)
+tree.fit(X, y)
+inst = np.array([4,0]) 
+inst = inst.reshape(1,-1) 
+y_pred = tree.predict(inst) # prediction
+print(y_pred) # print the prediction
+np.random.seed(3) # seed
+n = 3
+idxs = np.random.randint(X.shape[0], size=3)
+inst_t = X[idxs,:]
+y_pred = tree.predict(inst_t)
+
+Q1. Based on previous results, choice the correct answers.
+
+a) The predictive label of the instance 874 is 1
+
+b) The predictive label of the instance 664 is 0
+
+c) The predictive label of the instance 249 is 1
+
+d) The predictive label of the instance 874 is 0
+
+Correct answer: c) and d)
+
+
+Q2. Use the following code to compute the accuracy_score:
+from sklearn.metrics import accuracy_score
+
+y_pred = tree.predict(X)
+accuracy_score(y_pred,y)
+
+Correct answer: 0.90
+
+Code:
+from sklearn.metrics import ConfusionMatrixDisplay
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+
+cm = confusion_matrix(y, y_pred)
+ConfusionMatrixDisplay(confusion_matrix=cm).plot(cmap = plt.get_cmap('Blues'))                           
+
+Q3. Select the correct answers using the information from the confusion matrix.
+
+a) The model classify incorrectly 500 instance
+
+b) There are only 61 true positive and 34 true negative
+
+c) The number of false positive instance is 61
+
+d) The model classify correctly 905 instances
+
+Correct answer:  c) and d)
+
+Q4. Separate the target and the features into two variables and create the response variable based on the columns Trump and Clinton.Select the correct code to complete this task
+
+a) X=df[['minority','bachelor']]
+
+b) X=df.drop(['trump', 'clinton'],axis=1)
+
+c) y=np.where(df.trump>df.clinton,1,0)
+
+d) y=df.trump
+
+Correct answer: a) and c)
+
+Q5.Calculate the accuracy score of the training dataset. Select the correct answer.
+
+a) 0.808
+
+b) 0.908
+
+c) 0.901
+
+d) 0.801
+
+Correct answer: b)
+
+Q6. Which of the following statements are True about classification?
+a) Classification is a supervised task.
+
+b) The target variable is the variable whose values are modeled and predicted by other variables.
+
+c) A single row of data is called an instance.
+
+d) Classification is a unsupervised task.
+
+Correct answer: a) , b) and c)
+
+Q7. Which of the following statements are examples of classification?
+
+a) Develop a mathematical relationship between heater level (0-100%) and temperature (20-70°C).
+
+b) Predict when an images belong to a class such as recurrent cancer or no cancer.
+
+c) Determine when a heater is on or off based on temperature data.
+
+d) Predict the prices of the house based on other variables
+
+Correct answer: b) and c)
+
+Q8. In which phase are model parameters adjusted?
+
+a) Testing phase
+
+b) Training phase
+
+c) Data preparation phase
+
+Correct answer: b)
